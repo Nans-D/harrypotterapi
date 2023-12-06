@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 const Ravenclaw = () => {
   const [data, setData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -15,26 +16,11 @@ const Ravenclaw = () => {
     };
     fetchData();
   }, []);
-  const RavenclawClass = [
-    {
-      img: "https://ik.imagekit.io/hpapi/cho.jpg",
-      name: "Cho Chang",
-      house: "Ravenclaw",
-      secondName: "Balance",
-    },
-    {
-      img: "https://ik.imagekit.io/hpapi/luna.jpg",
-      name: "Luna Lovegood",
-      house: "Ravenclaw",
-      secondName: "La folle",
-    },
-    {
-      img: "https://resize-public.ladmedia.fr/img/var/public/storage/images/news/photos/padma-patil-harry-potter-sa-transformation-en-mini-kim-kardashian-783398/afshan-azad-en-padma-patil-783424/10599162-1-fre-FR/Afshan-Azad-en-Padma-Patil.jpg",
-      name: "Padma Patil",
-      house: "Ravenclaw",
-      secondName: "Qu'est ce qu'elle fout la ?",
-    },
-  ];
+
+  const newData = data.filter((item) =>
+    item.name.toLowerCase().includes(inputValue.toLowerCase())
+  );
+
   return (
     <div className="container-house">
       <img
@@ -42,8 +28,16 @@ const Ravenclaw = () => {
         src="https://images.desenio.com/zoom/wb0016-8harrypotter-ravenclaw50x70-79738-77537.jpg"
         alt=""
       />
+      <input
+        value={inputValue}
+        type="text"
+        onChange={(e) => {
+          let str = e.target.value;
+          setInputValue(str);
+        }}
+      />
       <div className="gryffindor-house-container">
-        {data.map((item) => {
+        {newData.map((item) => {
           return (
             <Card
               img={item.image}

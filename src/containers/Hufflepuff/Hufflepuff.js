@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 const Hufflepuff = () => {
   const [data, setData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -15,26 +16,11 @@ const Hufflepuff = () => {
     };
     fetchData();
   }, []);
-  const HufflepuffClass = [
-    {
-      img: "https://ik.imagekit.io/hpapi/cedric.png",
-      name: "Cedric Diggory",
-      house: "Hufflepuff",
-      secondName: "Dead Body",
-    },
-    {
-      img: "https://static.posters.cz/image/750/affiches-et-posters/les-animaux-fantastiques-les-crimes-de-grindelwald-newt-scamander-i63896.jpg",
-      name: "Newt Scamander",
-      house: "Hufflepuff",
-      secondName: "Le fou ",
-    },
-    {
-      img: "https://www.encyclopedie-hp.org/wp-content/uploads/sites/4/2016/08/hannah-1.jpg",
-      name: "Hannah Abbott",
-      house: "Hufflepuff",
-      secondName: "GNGNGN",
-    },
-  ];
+
+  const newData = data.filter((item) => {
+    return item.name.toLowerCase().includes(inputValue.toLowerCase());
+  });
+
   return (
     <div className="container-house">
       <img
@@ -42,8 +28,16 @@ const Hufflepuff = () => {
         src="https://img.posterstore.com/zoom/wb0015-8harrypotter-hufflepuff50x70-52832-46042.jpg"
         alt=""
       />
+      <input
+        value={inputValue}
+        type="text"
+        onChange={(e) => {
+          let str = e.target.value;
+          setInputValue(str);
+        }}
+      />
       <div className="gryffindor-house-container">
-        {data.map((item) => {
+        {newData.map((item) => {
           return (
             <Card
               img={item.image}

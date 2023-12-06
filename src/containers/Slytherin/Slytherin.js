@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 const Slytherin = () => {
   const [data, setData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
@@ -16,26 +18,10 @@ const Slytherin = () => {
     fetchData();
   }, []);
 
-  const SlytherinClass = [
-    {
-      img: "https://ik.imagekit.io/hpapi/draco.jpg",
-      name: "Draco Malfoy",
-      house: "Slytherin",
-      secondName: "Fils à papa",
-    },
-    {
-      img: "https://ik.imagekit.io/hpapi/snape.jpg",
-      name: "Severus Snape",
-      house: "Slytherin",
-      secondName: "Goat",
-    },
-    {
-      img: "https://ik.imagekit.io/hpapi/bellatrix.jpg",
-      name: "Bellatrix Lestrange",
-      house: "Slytherin",
-      secondName: "Folle Furieuse",
-    },
-  ];
+  const newData = data.filter((item) => {
+    return item.name.toLowerCase().includes(inputValue.toLowerCase());
+  });
+
   return (
     <div className="container-house">
       <img
@@ -43,8 +29,16 @@ const Slytherin = () => {
         src="https://images.desenio.com/zoom/wb0014-8harrypotter-slytherin50x70-64059-84203.jpg"
         alt=""
       />
+      <input
+        value={inputValue}
+        type="text"
+        onChange={(e) => {
+          let str = e.target.value;
+          setInputValue(str);
+        }}
+      />
       <div className="gryffindor-house-container">
-        {data.map((item) => {
+        {newData.map((item) => {
           return (
             <Card
               img={item.image}

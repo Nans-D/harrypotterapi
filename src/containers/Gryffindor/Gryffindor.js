@@ -18,7 +18,7 @@ const Gryffindor = () => {
   }, []);
 
   const newData = data.filter((item) => {
-    return item.name.includes(inputValue);
+    return item.name.toLowerCase().includes(inputValue.toLowerCase());
   });
 
   return (

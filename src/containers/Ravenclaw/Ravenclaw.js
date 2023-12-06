@@ -28,14 +28,16 @@ const Ravenclaw = () => {
         src="https://images.desenio.com/zoom/wb0016-8harrypotter-ravenclaw50x70-79738-77537.jpg"
         alt=""
       />
-      <input
-        value={inputValue}
-        type="text"
-        onChange={(e) => {
-          let str = e.target.value;
-          setInputValue(str);
-        }}
-      />
+      <div className="">
+        <input
+          value={inputValue}
+          type="text"
+          onChange={(e) => {
+            let str = e.target.value;
+            setInputValue(str);
+          }}
+        />
+      </div>
       <div className="gryffindor-house-container">
         {newData.map((item) => {
           return (

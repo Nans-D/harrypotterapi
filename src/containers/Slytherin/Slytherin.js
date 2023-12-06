@@ -1,7 +1,21 @@
 import "./Slytherin.css";
 import Card from "../../components/Card/Card";
+import { useState, useEffect } from "react";
 
 const Slytherin = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://hp-api.onrender.com/api/characters/house/slytherin"
+      );
+
+      const responseApi = await response.json();
+      setData(responseApi);
+    };
+    fetchData();
+  }, []);
+
   const SlytherinClass = [
     {
       img: "https://ik.imagekit.io/hpapi/draco.jpg",
@@ -30,13 +44,13 @@ const Slytherin = () => {
         alt=""
       />
       <div className="gryffindor-house-container">
-        {SlytherinClass.map((item) => {
+        {data.map((item) => {
           return (
             <Card
-              img={item.img}
+              img={item.image}
               name={item.name}
               house={item.house}
-              secondName={item.secondName}
+              secondName={item.alternate_names[1]}
             ></Card>
           );
         })}

@@ -1,27 +1,26 @@
 import "./Gryffindor.css";
 import Card from "../../components/Card/Card";
+import { useEffect, useState } from "react";
 
 const Gryffindor = () => {
-  const GryffindorClass = [
-    {
-      img: "https://ik.imagekit.io/hpapi/harry.jpg",
-      name: "Harry Potter",
-      house: "Gryffindor",
-      secondName: "Le Dieu",
-    },
-    {
-      img: "https://ik.imagekit.io/hpapi/hermione.jpeg",
-      name: "Hermione Granger",
-      house: "Gryffindor",
-      secondName: "GNGNGNGNNG",
-    },
-    {
-      img: "https://ik.imagekit.io/hpapi/ron.jpg",
-      name: "Ron Weasley",
-      house: "Gryffindor",
-      secondName: "Le roux",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://hp-api.onrender.com/api/characters/house/gryffindor"
+      );
+
+      const responseApi = await response.json();
+      setData(responseApi);
+    };
+    fetchData();
+  }, []);
+
+  const newData = data.filter((item) => {
+    return item.name.includes(inputValue);
+  });
+
   return (
     <div className="container-house">
       <img
@@ -29,14 +28,22 @@ const Gryffindor = () => {
         src="https://images.desenio.com/zoom/wb0013-8harrypotter-gryffindor50x70-97281-41200.jpg"
         alt=""
       />
+      <input
+        value={inputValue}
+        type="text"
+        onChange={(e) => {
+          let str = e.target.value;
+          setInputValue(str);
+        }}
+      />
       <div className="gryffindor-house-container">
-        {GryffindorClass.map((item) => {
+        {newData.map((item) => {
           return (
             <Card
-              img={item.img}
+              img={item.image}
               name={item.name}
               house={item.house}
-              secondName={item.secondName}
+              secondName={item.alternate_names[0]}
             ></Card>
           );
         })}

@@ -1,7 +1,20 @@
 import "./Ravenclaw.css";
 import Card from "../../components/Card/Card";
+import { useState, useEffect } from "react";
 
 const Ravenclaw = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://hp-api.onrender.com/api/characters/house/ravenclaw"
+      );
+
+      const responseApi = await response.json();
+      setData(responseApi);
+    };
+    fetchData();
+  }, []);
   const RavenclawClass = [
     {
       img: "https://ik.imagekit.io/hpapi/cho.jpg",
@@ -30,13 +43,13 @@ const Ravenclaw = () => {
         alt=""
       />
       <div className="gryffindor-house-container">
-        {RavenclawClass.map((item) => {
+        {data.map((item) => {
           return (
             <Card
-              img={item.img}
+              img={item.image}
               name={item.name}
               house={item.house}
-              secondName={item.secondName}
+              secondName={item.alternate_names[0]}
             ></Card>
           );
         })}

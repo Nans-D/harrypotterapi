@@ -20,10 +20,29 @@
 
 .links-header {
   text-decoration: none;
+  display: inline-block;
+  text-decoration: none;
   color: white;
-  border-bottom: 1px solid transparent;
+}
+.links-header::after {
+  content: "";
+  display: flex;
+  width: 0; /* Hide border initially */
+  height: 1px;
+  background: white;
+  transition: width 0.3s ease;
+}
+.links-header:hover::after {
+  width: 100%; /* Show border on hover */
 }
 
-.links-header:hover {
-  border-bottom: 1px solid white;
+@keyframes appear {
+  from {
+    border-bottom: 1px solid white;
+    transform: scaleX(0);
+  }
+  to {
+    border-bottom: 1px solid white;
+    transform: scaleX(1);
+  }
 }

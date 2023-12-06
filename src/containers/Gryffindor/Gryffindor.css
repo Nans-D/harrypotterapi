@@ -13,4 +13,7 @@
 }
 .gryffindor-house-container {
   display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  width: 100vw;
 }

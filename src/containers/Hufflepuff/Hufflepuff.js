@@ -1,7 +1,20 @@
 import "./Hufflepuff.css";
 import Card from "../../components/Card/Card";
+import { useState, useEffect } from "react";
 
 const Hufflepuff = () => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://hp-api.onrender.com/api/characters/house/hufflepuff"
+      );
+
+      const responseApi = await response.json();
+      setData(responseApi);
+    };
+    fetchData();
+  }, []);
   const HufflepuffClass = [
     {
       img: "https://ik.imagekit.io/hpapi/cedric.png",
@@ -30,13 +43,13 @@ const Hufflepuff = () => {
         alt=""
       />
       <div className="gryffindor-house-container">
-        {HufflepuffClass.map((item) => {
+        {data.map((item) => {
           return (
             <Card
-              img={item.img}
+              img={item.image}
               name={item.name}
               house={item.house}
-              secondName={item.secondName}
+              secondName={item.alternate_names[0]}
             ></Card>
           );
         })}

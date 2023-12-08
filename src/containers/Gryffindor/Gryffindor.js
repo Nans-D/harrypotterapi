@@ -29,6 +29,8 @@ const Gryffindor = () => {
         alt=""
       />
       <input
+        placeholder="Rechercher"
+        className="input-filter"
         value={inputValue}
         type="text"
         onChange={(e) => {

@@ -29,6 +29,8 @@ const Hufflepuff = () => {
         alt=""
       />
       <input
+        placeholder="Rechercher"
+        className="input-filter"
         value={inputValue}
         type="text"
         onChange={(e) => {
@@ -37,7 +39,7 @@ const Hufflepuff = () => {
         }}
       />
       <div className="gryffindor-house-container">
-        {newData.map((item) => {
+        {data.map((item) => {
           return (
             <Card
               img={item.image}

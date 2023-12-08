@@ -3,6 +3,7 @@ import { useState } from "react";
 
 const Card = (props) => {
   const [modale, setModale] = useState(false);
+  console.log(modale);
 
   return (
     <div
